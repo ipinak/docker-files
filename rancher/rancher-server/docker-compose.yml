@@ -24,11 +24,11 @@ services:
     rancher-server:
         image: rancher/server:latest
         restart: unless-stopped
+        ports:
+            - 8080:8080
         depends_on:
             - database
         command: --db-host database --db-port 3306 --db-user cattle --db-pass cattle_pass --db-name cattle
-
-
 
 volumes:
     db_data:
