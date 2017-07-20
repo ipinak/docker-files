@@ -1,0 +1,35 @@
+version: "2"
+
+services:
+    db_data:
+        image: alpine:latest
+        volumes:
+            - ./database_data:/var/lib/mysql:rw
+
+    database:
+        image: mysql:5.7
+        restart: unless-stopped
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_DATABASE=cattle
+            - MYSQL_USER=cattle
+            - MYSQL_PASSWORD=cattle_pass
+            - MYSQL_ROOT_PASSWORD=root_pass
+        volumes:
+            - ./conf.d:/etc/mysql/conf.d
+        volumes_from:
+            - db_data
+
+    rancher-server:
+        image: rancher/server:latest
+        restart: unless-stopped
+        depends_on:
+            - database
+        command: --db-host database --db-port 3306 --db-user cattle --db-pass cattle_pass --db-name cattle
+
+
+
+volumes:
+    db_data:
+        driver: "local"
