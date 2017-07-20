@@ -1,0 +1,17 @@
+{
+    "TIME_ZONE": "America/Chicago",
+    "ADMINS": [],
+    "WEB_ROOT": "/",
+    "LANGUAGE_CODE": "en-us",
+    "DEBUG": false,
+    "USE_HTTPS": false,
+    "ALLOW_VERSION_OVERWRITE": "",
+
+    "DB_ENGINE": "django.db.backends.sqlite3",
+    "DB_FOLDER": "/pypi-site/djangopypi2",
+    "DB_NAME": "db.sqlite3",
+
+    "EMAIL_DEFAULT_SENDER": "admin@localhost",
+    "EMAIL_SERVER": "smtp://username:password@smtp.server.com:25/",
+    "EMAIL_USE_TLS": true
+}
