@@ -1,0 +1,5 @@
+log:
+  filePath: "/var/log/traefik.log"
+  format: json
+  level: INFO
+  bufferingSize: 1000
