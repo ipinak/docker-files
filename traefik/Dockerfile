@@ -1,8 +1,8 @@
 FROM traefik:v2.0
 
-ADD config.yaml /etc/traefik/
+LABEL container.name="traefik"
 
-CMD ["--api.insecure=false",
-    "--providers.docker=true",
-    "--providers.docker.exposedbydefault=false"]
+ADD traefik.yaml /etc/traefik/
+
+CMD ["--api.insecure=false", "--providers.docker=true", "--providers.docker.exposedbydefault=false"]
 
