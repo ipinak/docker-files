@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 volumes:
     prometheus_data: {}
@@ -57,12 +57,12 @@ services:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
     networks:
-      - monitor-net     
+      - monitor-net
     deploy:
       placement:
         constraints:
@@ -81,10 +81,10 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
-    command: 
-      - '--path.procfs=/host/proc' 
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points"
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     ports:
       - 9100:9100
@@ -104,14 +104,14 @@ services:
     networks:
       - monitor-net
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
     deploy:
       placement:
         constraints:
            - node.role==manager
       restart_policy:
-        condition: on-failure    
+        condition: on-failure
 
   cadvisor:
     image: google/cadvisor
@@ -146,7 +146,7 @@ services:
         constraints:
           - node.role==manager
       labels:
-        -  "traefik.frontend.rule=Host:grafana.localhost"
+        - "traefik.frontend.rule=Host:grafana.localhost"
         - "traefik.backend=grafana"
         - "traefik.port=3000"
         - "traefik.docker.network=traefik"

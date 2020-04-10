@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 volumes:
     prometheus_data: {}
@@ -12,14 +12,16 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.1.0
+    labels:
+      - "container.name=prometheus"
     volumes:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
     ports:
       - 9090:9090
     links:
@@ -30,21 +32,18 @@ services:
     networks:
       - back-tier
     restart: always
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
 
   node-exporter:
     image: prom/node-exporter
+      - "container.name=node-exporter"
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points"
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     ports:
       - 9100:9100
@@ -56,6 +55,8 @@ services:
 
   alertmanager:
     image: prom/alertmanager
+    labels:
+      - "container.name=alert-manager"
     ports:
       - 9093:9093
     volumes:
@@ -64,14 +65,13 @@ services:
       - back-tier
     restart: always
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
-#    deploy:
-#      placement:
-#        constraints:
-#          - node.hostname == ${HOSTNAME}
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
+
   cadvisor:
     image: google/cadvisor
+    labels:
+      - "container.name=alert-manager"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -87,6 +87,8 @@ services:
 
   grafana:
     image: grafana/grafana
+    labels:
+      - "container.name=grafana"
     user: "104"
     depends_on:
       - prometheus
