@@ -1,5 +1,48 @@
+api:
+  dashboard: true
+
+defaultEntryPoints:
+  - "http"
+  - "https"
+
+web:
+  address: ":8080"
+  auth:
+    basic:
+      users:
+        - "admin:$apr1$LtJnke0W$6BkKplUjOgJTKQ/JOZWKi0"
+
+entryPoints:
+  http:
+    address: ":80"
+    redirect:
+      entryPoint: "https"
+  https:
+    address: ":443"
+
 log:
   filePath: "/var/log/traefik.log"
   format: json
   level: INFO
-  bufferingSize: 1000
+
+accessLog:
+  filePath: "/var/log/access.log"
+  format: json
+
+metrics:
+  prometheus:
+    addServicesLabels: true
+    addEntryPointsLabels: true
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+
+acme:
+  email: "giannis.pin@gmail.com"
+  storage: "acme.json"
+  entryPoint: "https"
+  onHostRule: true
+  onDemand: false
+

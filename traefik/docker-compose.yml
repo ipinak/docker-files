@@ -3,11 +3,26 @@ version: '3'
 services:
 
   reverse-proxy:
-     image: traefik:local
-     command: --api.insecure=true --providers.docker
+     labels:
+       - traefik.frontend.rule=Host:monitor.ipinak.gr
+       - traefik.port=2080
+     build:
+       context: .
+       dockerfile: Dockerfile
+     restart: always
+     networks:
+       - proxy
      ports:
        - "80:80"
+       - "443:443"
        # The Web UI (enabled by --api.insecure=true)
        - "2080:8080"
      volumes:
        - /var/run/docker.sock:/var/run/docker.sock
+       - $PWD/acme.json:/acme.json
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
