@@ -1,0 +1,21 @@
+## Static configuration
+http:
+  routers:
+    grafana-router:
+      service: grafana-service
+      middlewares:
+        - "grafana-ratelimit"
+      rule: "Host(`grafana.ipinak.gr`)"
+
+  middlewares:
+    grafana-ratelimit:
+      rateLimit:
+        average: 100
+        burst: 50
+
+  services:
+    grafana-service:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.200:3000"
+

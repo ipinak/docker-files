@@ -3,9 +3,6 @@ version: '3'
 services:
 
   reverse-proxy:
-     labels:
-       - traefik.frontend.rule=Host:monitor.ipinak.gr
-       - traefik.port=2080
      build:
        context: .
        dockerfile: Dockerfile
@@ -20,6 +17,8 @@ services:
      volumes:
        - /var/run/docker.sock:/var/run/docker.sock
        - $PWD/acme.json:/acme.json
+       - $PWD/traefik.yaml:/etc/traefik/traefik.yaml
+       - $PWD/dynamic:/etc/traefik/dynamic:ro
 
 networks:
   proxy:

@@ -1,29 +1,30 @@
+---
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
 api:
+  insecure: true
   dashboard: true
 
-defaultEntryPoints:
-  - "http"
-  - "https"
+ping:
+  entryPoint: "web"
 
-web:
-  address: ":8080"
-  auth:
-    basic:
-      users:
-        - "admin:$apr1$LtJnke0W$6BkKplUjOgJTKQ/JOZWKi0"
+providers:
+  file:
+    directory: "/etc/traefik/dynamic/"
 
 entryPoints:
-  http:
+  web:
     address: ":80"
-    redirect:
-      entryPoint: "https"
-  https:
+
+  websecure:
     address: ":443"
 
 log:
   filePath: "/var/log/traefik.log"
   format: json
-  level: INFO
+  level: debug
 
 accessLog:
   filePath: "/var/log/access.log"
@@ -42,7 +43,13 @@ metrics:
 acme:
   email: "giannis.pin@gmail.com"
   storage: "acme.json"
-  entryPoint: "https"
+  entryPoint: "websecure"
   onHostRule: true
-  onDemand: false
+  caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+  httpChallenge:
+    entrypoint: "web"
+
+  domains:
+    main: "ipinak.gr"
+    sans: "*.ipinak.gr"
 

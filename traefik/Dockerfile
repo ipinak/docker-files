@@ -1,11 +1,10 @@
-FROM traefik:v2.2
+FROM traefik:v2.1
 
 LABEL container.name="traefik"
 LABEL container.version="2.2"
-LABEL traefik.frontend.rule="monitor.ipinak.gr"
-LABEL traefik.port="2080"
 
-ADD traefik.yaml /etc/traefik/
+# ADD traefik.yaml /etc/traefik/
+# ADD traefik.toml /etc/traefik/
 
-CMD ["--providers.docker=true", "--providers.docker.exposedbydefault=false"]
+#CMD ["--providers.docker=true", "--providers.docker.exposedbydefault=false"]
 

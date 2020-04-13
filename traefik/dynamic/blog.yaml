@@ -1,0 +1,22 @@
+## Static configuration
+http:
+  routers:
+    blog-router:
+      service: blog-service
+      middlewares:
+        - "blog-ratelimit"
+      rule: "Host(`ipinak.gr`)"
+
+  middlewares:
+    blog-ratelimit:
+      rateLimit:
+        average: 100
+        burst: 50
+
+  services:
+    blog-service:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.200:8080"
+
+

@@ -1,0 +1,21 @@
+## Static configuration
+http:
+  routers:
+    radio-router:
+      service: radio-service
+      middlewares:
+        - "radio-ratelimit"
+      rule: "Host(`radio.ipinak.gr`)"
+
+  middlewares:
+    radio-ratelimit:
+      rateLimit:
+        average: 100
+        burst: 50
+    
+  services:
+    radio-service:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.200:10443"
+
