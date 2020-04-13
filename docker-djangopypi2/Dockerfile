@@ -1,7 +1,8 @@
 # DjangoPypi Server
-
 FROM ubuntu:14.04
-MAINTAINER Jim Yeh <lemonlatte@gmail.com>
+
+LABEL container.name="python-registry"
+LABEL container.version="14.04"
 
 RUN dpkg-divert --local --rename --add /sbin/initctl\
   && ln -sf /bin/true /sbin/initctl\
