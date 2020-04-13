@@ -6,6 +6,9 @@ http:
       middlewares:
         - "blog-ratelimit"
       rule: "Host(`ipinak.gr`)"
+      entryPoints:
+        - web
+        - websecure
 
   middlewares:
     blog-ratelimit:

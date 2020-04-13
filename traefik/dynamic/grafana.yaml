@@ -6,6 +6,8 @@ http:
       middlewares:
         - "grafana-ratelimit"
       rule: "Host(`grafana.ipinak.gr`)"
+      entryPoints:
+        - web
 
   middlewares:
     grafana-ratelimit:

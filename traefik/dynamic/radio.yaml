@@ -6,6 +6,10 @@ http:
       middlewares:
         - "radio-ratelimit"
       rule: "Host(`radio.ipinak.gr`)"
+      tls: {}
+      entryPoints:
+        - web
+        - websecure
 
   middlewares:
     radio-ratelimit:

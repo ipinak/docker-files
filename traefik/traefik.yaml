@@ -43,13 +43,6 @@ metrics:
 acme:
   email: "giannis.pin@gmail.com"
   storage: "acme.json"
-  entryPoint: "websecure"
-  onHostRule: true
-  caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
   httpChallenge:
     entrypoint: "web"
-
-  domains:
-    main: "ipinak.gr"
-    sans: "*.ipinak.gr"
 

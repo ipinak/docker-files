@@ -3,13 +3,16 @@ http:
     api:
       rule: "PathPrefix(`/api`)"
       service: api@internal
+      entryPoints:
+        - traefik
       middlewares:
         - whitelist
 
     metrics:
       rule: "PathPrefix(`/metrics`)"
       service: prometheus@internal
-      entryPoint: traefik
+      entryPoints:
+        - traefik
       middlewares:
         - whitelist
 
