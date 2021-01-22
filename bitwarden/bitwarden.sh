@@ -60,7 +60,6 @@ function downloadRunFile() {
     fi
     curl -s -o $SCRIPTS_DIR/run.sh $GITHUB_BASE_URL/scripts/run.sh
     chmod u+x $SCRIPTS_DIR/run.sh
-    rm -f $SCRIPTS_DIR/install.sh
 }
 
 function checkOutputDirExists() {
